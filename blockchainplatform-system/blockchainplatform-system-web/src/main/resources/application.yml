@@ -1,0 +1,145 @@
+#启动命令:java -server -Xms512m -Xmx2048m  -jar springboot-1.0.jar
+server:
+  #服务http端口
+  port: 8081
+
+  servlet:
+    #访问根路径
+    context-path: /system
+    #编码
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+    #上传附件大小
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  #Tomcat优化配置
+  tomcat:
+    #请求编码
+    uri-encoding: UTF-8
+    #链接建立超时毫秒
+    connection-timeout: 12000
+    #最大链接数
+    max-connections: 5000
+    #最大等待队列长度
+    accept-count: 1000
+    #请求头最大长度b 1M=1*1024*1024
+    max-http-header-size: 1048576
+    #请求体最大长度b 2M=2*1024*1024
+    max-http-form-post-size: 2097152
+    threads:
+      #最小线程数
+      min-spare: 500
+      #最大线程数
+      max: 2500
+
+springrain:
+  ###基本的包路径,因为事务xml需要配置路径,程序中也需要使用,抽出来了,记得和包名一块修改###
+  basepackagepath: net.shengjian
+  ###RSA的公钥私钥pem字符串,生产环境一定要配置正确!!!###
+  rsa:
+    privatekey: ''
+    publickey: ''
+
+  ###jwt 的默认配置,secret 在生产环境一定要配置正确!!!!!!###
+  jwt:
+    secret: shengjian.net+sdaflewkffreg
+    timeout: 36000000
+    tokenkey: jwttoken
+
+
+  ### 数据库方言,和IDialect接口的实现bean名称保持一致
+  dbDialectBeanName: mysqlDialect
+
+#  redis:
+#    hostport: redis://127.0.0.1:6379    ###如果是redis集群,使用逗号隔开,例如 redis://127.0.0.1:6379,redis://127.0.0.1:6378 ###
+#    password:   ###密码,可以不设置####
+#    timeout: 7200000
+#    pool:
+#      max-active: 1024
+#      min-idle: 200
+
+  ####ES的配置###
+  es:
+    hostport: 127.0.0.1:9200    ###es的IP和端口,如果是集群,使用逗号隔开,例如 192.168.0.2:9200,192.168.0.3:9200 ###
+
+  ###rocketmq配置
+  rocketmq:
+    namesrvAddr: 127.0.0.1:9876
+    producerGroupName: defaultMQProducer
+    producerInstanceName: defaultMQProducerInstance
+    transactionProducerGroupName: defaultTransactionMQProducer
+    producerTranInstanceName: defaultTransactionMQProducerInstance
+    consumerGroupName: defaultConsumerGroupName
+    subscribe:
+      - rest_topic_2:*
+      - rest_topic_1:*
+
+
+  #logging:
+  #  level:
+  #    org: INFO ### 配置spring web日志级别###
+
+  ###静态文件默认放到 resources/static目录下,也可以指定磁盘路径 file:D:/static/,这样方便程序读取上传upload的目录###
+#staticdir: D:/static/
+# E:/work/online/blockchainplatform/blockchainplatform-system/blockchainplatform-system-web/src/main/resources/static/
+# ./static/
+staticdir: /static/
+
+spring:
+  web:
+    resources:
+      static-locations: file:${staticdir}
+
+  ###代码实现:org.springrain.config.SpringMVCConfig.addResourceHandlers(ResourceHandlerRegistry)###
+  mvc:
+    ignore-default-model-on-redirect: false #在重定向时是否忽略默认model的内容，默认为true###
+    #pathmatch:
+    #  matching-strategy: ant-path-matcher  ##默认策略已从 AntPathMatcher 更改为 PathPatternParser
+  aop:
+    proxy-target-class: false  #强制使用接口代理,不使用cglib,RPC一般是基于接口代理的###
+  ### 允许循环引用 ###
+  main:
+    allow-circular-references: true
+
+
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/industrybrain?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Hongkong&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #default-transaction-isolation: ISOLATION_READ_UNCOMMITTED
+
+
+  redis:
+    host: 192.168.32.121
+    port: 30379
+    password:   ###密码,可以不设置####
+    timeout: 7200000
+    #pool:
+    #  max-active: 1024
+    #  min-idle: 200
+    lettuce:
+      pool:
+        max-active: 1024
+        min-idle: 200
+
+
+
+###actuator的默认路径/actuator/ 开头,已经在shiro配置,只有system有权限###        
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+
+
+

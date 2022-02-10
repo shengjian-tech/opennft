@@ -1,0 +1,109 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.shengjian</groupId>
+        <artifactId>blockchainplatform-system</artifactId>
+        <version>6.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>blockchainplatform-system-serviceimpl</artifactId>
+    <url>https://www.shengjian.net</url>
+    <packaging>jar</packaging>
+    <description>系统管理的service实现</description>
+
+
+    <dependencies>
+
+        <!-- 作为RPC实现时,需要依赖  blockchainplatform-grpc-server,作为单体只需要依赖blockchainplatform-grpc-client.-->
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-grpc-client</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <!-- 作为独立的RPC服务运行时,需要依赖 springrain-grpc-server  -->
+        <!--
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-grpc-server</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+        </dependency>
+        -->
+
+
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-frame-dao</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-system-service</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+
+
+        <plugins>
+            <!-- springboot compile plugin,RCP独立运行时需要使用springboot插件进行打包 -->
+            <!--
+             <plugin>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-maven-plugin</artifactId>
+             </plugin>
+             -->
+
+
+            <!-- Java compile plugin,当本地作为业务实现调试时,需要使用基本的打包方式. -->
+            <!--
+            <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+             -->
+
+        </plugins>
+
+
+        <!--
+
+                <resources>
+
+
+                    <resource>
+                        <directory>lib</directory>
+                        <targetPath>BOOT-INF/lib/</targetPath>
+                        <includes>
+                            <include>**/*.jar</include>
+                        </includes>
+                    </resource>
+
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <targetPath>BOOT-INF/classes/</targetPath>
+                    </resource>
+
+
+                </resources>
+         -->
+
+
+    </build>
+
+
+</project>

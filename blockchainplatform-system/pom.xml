@@ -1,0 +1,30 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.shengjian</groupId>
+        <artifactId>blockchainplatform</artifactId>
+        <version>6.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>blockchainplatform-system</artifactId>
+    <url>https://www.shengjian.net</url>
+    <packaging>pom</packaging>
+    <description>系统管理</description>
+
+
+    <modules>
+
+        <!-- 系统管理的service接口 -->
+        <module>blockchainplatform-system-service</module>
+
+        <!-- 系统管理的service实现 -->
+        <module>blockchainplatform-system-serviceimpl</module>
+
+        <!-- 系统管理的web拦截器和controller -->
+        <module>blockchainplatform-system-web</module>
+
+    </modules>
+
+
+</project>

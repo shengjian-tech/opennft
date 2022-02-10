@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  springrain-system-web:
+    build:
+      context: ./springrain-system/springrain-system-web
+    restart: always
+    container_name: springrain-system-web
+    image: springrain-system-web
+    ports:
+      - 8080:8080
+  

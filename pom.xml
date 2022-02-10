@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.shengjian</groupId>
+    <artifactId>blockchainplatform</artifactId>
+    <version>6.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <url>https://www.shengjian.net</url>
+    <description>blockchainplatform总项目</description>
+
+
+    <!-- 整体依赖 springboot -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+
+    <!-- 声明引用组件的版本 -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- 建议使用 https://github.com/core-lib/xjar  混淆代码,使用比较简单 -->
+        <proguard-maven-plugin.version>2.3.1</proguard-maven-plugin.version>
+        <proguard.version>6.2.2</proguard.version>
+
+        <!--
+        <servlet-api.version>4.0.1</servlet-api.version>
+        -->
+
+        <commons-pool2.version>2.11.1</commons-pool2.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <commons-codec.version>1.15</commons-codec.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
+        <commons-text.version>1.9</commons-text.version>
+
+        <javax.persistence.version>2.2.1</javax.persistence.version>
+        <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
+
+        <!-- lucene版本和es的依赖版本最好保持一致,避免冲突 -->
+        <lucene.version>8.10.1</lucene.version>
+        <elasticsearch.client.version>7.16.3</elasticsearch.client.version>
+
+        <!-- 建议使用 redis stream实现MQ,比较简单 -->
+        <rocketmq.client.version>4.9.1</rocketmq.client.version>
+        <jxl.version>2.6.12</jxl.version>
+
+        <!-- GRPC -->
+        <io.grpc.version>1.40.1</io.grpc.version>
+        <kr.motd.maven.version>1.7.0</kr.motd.maven.version>
+        <io.protostuff.version>1.7.4</io.protostuff.version>
+
+        <!--
+        <jodconverter.version>2.2.1</jodconverter.version>
+        <gson.version>2.8.5</gson.version>
+        -->
+
+        <zxing.version>3.4.1</zxing.version>
+        <jsoup.version>1.14.3</jsoup.version>
+        <xstream.version>1.4.18</xstream.version>
+        <druid-spring-boot-starter.version>1.2.8</druid-spring-boot-starter.version>
+
+        <clickhouse-jdbc.version>0.3.2</clickhouse-jdbc.version>
+
+        <jwt.version>3.18.3</jwt.version>
+
+        <!--
+        <redisson.version>3.15.3</redisson.version>
+        -->
+        <!--3.x版本依赖jdk 14 -->
+        <fst.version>2.57</fst.version>
+
+        <bcprov.version>1.69</bcprov.version>
+
+        <!-- seata分布式事务 -->
+        <seata.version>1.4.2</seata.version>
+
+        <!-- smart-doc 文档生成 -->
+        <smart-doc-maven-plugin.version>2.3.7</smart-doc-maven-plugin.version>
+
+
+
+        <!-- activiti流程引擎       -->
+        <activiti.version>6.0.0</activiti.version>
+
+    </properties>
+
+
+    <!-- 统一组件版本 -->
+    <dependencyManagement>
+
+        <dependencies>
+
+
+            <!--
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            -->
+
+
+            <!-- 阿里巴巴的druid数据库连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-spring-boot-starter.version}</version>
+            </dependency>
+            <!-- redis 客户端,强依赖,不可更换为其他redis客户端.使用默认的spring-boot-starter-data-redis,不再使用redisson -->
+            <!--
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            -->
+
+            <!-- java序列化框架fst -->
+            <dependency>
+                <groupId>de.ruedigermoeller</groupId>
+                <artifactId>fst</artifactId>
+                <version>${fst.version}</version>
+            </dependency>
+
+
+
+            <!--  jwt  -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <!-- 上传组件 -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
+            <!-- 集合工具类 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+            <!-- beanutils工具类 -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+
+            <!-- io工具类 -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons-text.version}</version>
+            </dependency>
+
+
+            <!-- jpa规范的注解 -->
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>javax.persistence</artifactId>
+                <version>${javax.persistence.version}</version>
+            </dependency>
+
+            <!-- excle导入组件 -->
+            <dependency>
+                <groupId>net.sourceforge.jexcelapi</groupId>
+                <artifactId>jxl</artifactId>
+                <version>${jxl.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>log4j</artifactId>
+                        <groupId>log4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
+            <!-- lucene -->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-core</artifactId>
+                <version>${lucene.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-queryparser</artifactId>
+                <version>${lucene.version}</version>
+            </dependency>
+
+            <!-- elasticsearch -->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.client.version}</version>
+            </dependency>
+
+
+            <!-- rocketmq -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.client.version}</version>
+            </dependency>
+
+
+
+
+
+            <!-- openoffice连接组件 -->
+            <!--
+            <dependency>
+                <groupId>com.artofsolving</groupId>
+                <artifactId>jodconverter</artifactId>
+                <version>${jodconverter.version}</version>
+            </dependency>
+            -->
+
+
+            <!-- HTML解析组件 -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+
+            <!-- 条形码和二维码组件 -->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+
+
+            <!-- xstream解析微信xml格式协议 -->
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
+            </dependency>
+
+
+
+
+
+            <!-- 兼容微信的加密协议 -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bcprov.version}</version>
+            </dependency>
+
+            <!-- GRPC -->
+
+            <dependency>
+
+
+
+
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-core</artifactId>
+                <version>${io.grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-netty</artifactId>
+                <version>${io.grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-protobuf</artifactId>
+                <version>${io.grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-stub</artifactId>
+                <version>${io.grpc.version}</version>
+            </dependency>
+
+
+            <!-- JDK11需要的jar包 -->
+            <!--
+             <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-core</artifactId>
+                <version>2.3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>2.3.1</version>
+            </dependency>
+
+
+
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+             -->
+
+
+            <!-- seata组件 -->
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-rm-datasource</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-rm</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-tm</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-core</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-sqlparser-druid</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-serializer-seata</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-serializer-fst</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>ru.yandex.clickhouse</groupId>
+                <artifactId>clickhouse-jdbc</artifactId>
+                <version>${clickhouse-jdbc.version}</version>
+            </dependency>
+
+
+
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+
+
+            <!-- 加载本地的jar包 -->
+            <!--
+            <dependency>
+                <groupId>org.springrain</groupId>
+                <artifactId>testjar</artifactId>
+                <scope>system</scope>
+                <version>1.0.0</version>
+                <systemPath>${pom.basedir}/lib/testjar-1.0.0.jar</systemPath>
+            </dependency>
+            -->
+
+
+
+
+        </dependencies>
+
+
+    </dependencyManagement>
+
+
+    <modules>
+
+        <!-- frame的基础工具类模块 -->
+        <module>blockchainplatform-frame-util</module>
+
+        <!-- frame的dao层的操作 -->
+        <module>blockchainplatform-frame-dao</module>
+
+        <!-- memory内存类型的缓存,和redis缓存互斥,只能使用一个 -->
+        <!-- 如果更换为redis需要注释这个module,解开blockchainplatform-frame-cache-redis的module,并在blockchainplatform-system-web的pom中依赖修改为 blockchainplatform-frame-cache-redis -->
+        <!--<module>blockchainplatform-frame-cache-memory</module>-->
+
+
+        <!-- redis类型的缓存,和memory内存缓存互斥,只能使用一个 -->
+        <!-- 如果更换为memory需要注释这个module,解开blockchainplatform-frame-cache-memory的module,并在blockchainplatform-system-web的pom中依赖修改为 blockchainplatform-frame-cache-memory -->
+
+        <module>blockchainplatform-frame-cache-redis</module>
+
+
+        <!-- 微信的SDK模块 -->
+        <module>blockchainplatform-weixin-sdk</module>
+
+        <!-- 自带的系统管理web项目 -->
+        <module>blockchainplatform-system</module>
+
+        <!-- grpc的客户端模块 -->
+        <module>blockchainplatform-grpc-client</module>
+
+        <!-- grpc的服务端模块,serviceimpl单独做服务时,需要引用 -->
+        <!--
+        <module>blockchainplatform-grpc-server</module>
+        -->
+
+        <!--阿里云短信-->
+        <module>blockchainplatform-aliyunsms</module>
+        <!--nft-->
+        <module>blockchainplatform-nft</module>
+
+    </modules>
+
+
+    <build>
+
+        <plugins>
+
+            <!-- source源码包,所有子孙模块都打源码包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+
+</project>

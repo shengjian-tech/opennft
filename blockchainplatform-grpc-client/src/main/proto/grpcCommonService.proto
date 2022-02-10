@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "net.shengjian.rpc.grpcauto";
+option java_outer_classname = "GrpcAutoCreateService";
+option java_multiple_files = true;
+
+// 定义通用的 Grpc 服务
+service GrpcCommonService {
+    // 处理请求
+    rpc commonHandle ( CommonRequest ) returns ( CommonResponse ) {}
+}
+
+// 定义通用的 Grpc 请求体
+message CommonRequest {
+    int32 serialize = 1;
+    bytes request = 2;
+}
+
+// 定义通用的 Grpc 响应体
+message CommonResponse {
+    bytes response = 1;
+}

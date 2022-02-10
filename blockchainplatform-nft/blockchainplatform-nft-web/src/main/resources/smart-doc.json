@@ -1,0 +1,35 @@
+{
+  "outPath": "src/main/resources/static/docs",
+  "isStrict": false,
+  "projectName": "blockchainplatform",
+  "appKey": "",
+  "secret": "",
+  "appToken": "",
+  "openUrl": "http://192.168.32.121:30011/api",
+  "debugEnvName": "测试环境",
+  "debugEnvUrl": "http://172.16.0.163:8080/nft",
+  "requestHeaders": [
+    {
+      "name": "jwttoken",
+      "type": "string",
+      "desc": "jwt Token请求头",
+      "value": "token请求头的值,不设置默认null",
+      "required": true,
+      "since": "-"
+    }
+  ],
+  "customResponseFields": [
+    {
+      "name": "statusCode",
+      "desc": "响应代码",
+      "ownerClassName": "net.shengjian.frame.util.ReturnDatas",
+      "value": "200"
+    },
+    {
+      "name": "status",
+      "desc": "状态信息",
+      "ownerClassName": "net.shengjian.frame.util.ReturnDatas",
+      "value": "success"
+    }
+  ]
+}

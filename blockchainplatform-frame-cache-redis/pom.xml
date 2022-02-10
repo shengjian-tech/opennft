@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.shengjian</groupId>
+        <artifactId>blockchainplatform</artifactId>
+        <version>6.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>blockchainplatform-frame-cache-redis</artifactId>
+    <packaging>jar</packaging>
+    <url>https://www.shengjian.net</url>
+    <description>redis类型的缓存,和memory内存缓存互斥,只能使用一个</description>
+
+
+    <dependencies>
+
+
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-frame-util</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        -->
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- 使用fst序列化实现 -->
+        <dependency>
+            <groupId>de.ruedigermoeller</groupId>
+            <artifactId>fst</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.redislabs/jredisearch -->
+        <dependency>
+            <groupId>com.redislabs</groupId>
+            <artifactId>jredisearch</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+    </dependencies>
+
+
+</project>
