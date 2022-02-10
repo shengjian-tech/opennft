@@ -426,6 +426,7 @@ public class NftUserChainplatServiceImpl extends BaseSpringrainServiceImpl imple
 
         String key = userId+"_"+chainPlat.getCode();
         super.evictByKey(CachePrefixConst.USER_CHAIN_INFO,key);
+        super.evictByKey(CachePrefixConst.USER_ASSETS,userId);
         return update>0;
     }
 
