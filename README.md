@@ -39,8 +39,12 @@ java:https://xuper.baidu.com/n/doc#/e76de83b/1_0_0/e944842a
 
 ![img.png](readmeimage/3.png)
 
-- 下载前端项目 https://github.com/shengjian-tech/opennft-front
+# 前端项目
+https://github.com/shengjian-tech/opennft-front
 
-使用redis缓存,在application.yml中修改配置信息
+# 启动类
+使用redis缓存,在application.yml中修改配置信息.
+
+找到blockchainplatform-nft-web模块下的net.shengjian.makerone.SpringrainApplication启动类,进行启动
 
 默认用户名/密码:`admin/123`
