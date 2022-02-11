@@ -39,6 +39,18 @@ java:https://xuper.baidu.com/n/doc#/e76de83b/1_0_0/e944842a
 
 ![img.png](readmeimage/3.png)
 
+# 邮箱配置
+用于用户购买nft作品后将源文件,以邮件的方式发送到用户邮箱
+
+在自己邮箱的设置中申请对应的信息填入application.yml中的mail对应的属性中
+![img.png](readmeimage/4.png)
+
+# 短信配置
+用于用户完善个人信息时的手机号验证
+
+申请使用阿里云短信服务,完善`application.properties`中的`aliyun.accessKeyId`和`aliyun.accessKeySecret`,以及申请成功的短信模板
+![img.png](readmeimage/5.png)
+
 # 前端项目
 https://github.com/shengjian-tech/opennft-front
 
