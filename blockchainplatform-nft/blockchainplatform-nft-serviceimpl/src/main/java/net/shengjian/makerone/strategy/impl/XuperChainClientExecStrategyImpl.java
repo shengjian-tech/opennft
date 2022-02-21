@@ -11,6 +11,7 @@ import net.shengjian.makerone.constant.StrategyBeanKeyConst;
 import net.shengjian.makerone.exception.NFTException;
 import net.shengjian.makerone.strategy.ChainPlatClientExecStrategy;
 import net.shengjian.makerone.utils.NFTMapUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -135,7 +136,7 @@ public class XuperChainClientExecStrategyImpl implements ChainPlatClientExecStra
                 IOUtils.copy(is, fos);
             }
             account = Account.getAccountFromFile(dir,SecUtils.decoderByRSAPublicKey(passwd));
-            new File(tempPrivate).deleteOnExit();
+            FileUtils.deleteDirectory(new File(dir));
         }
         if(StringUtils.isNotBlank(contractAccount)){
             account.setContractAccount(contractAccount);
