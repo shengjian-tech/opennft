@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.shengjian</groupId>
+        <artifactId>blockchainplatform-system</artifactId>
+        <version>6.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>blockchainplatform-system-web</artifactId>
+    <name>blockchainplatform-system-web</name>
+    <url>https://www.shengjian.net</url>
+    <packaging>jar</packaging>
+    <description>系统管理的web端</description>
+
+
+    <dependencies>
+
+
+        <!-- 单体项目依赖blockchainplatform-system-serviceimpl,如果是微服务依赖 blockchainplatform-system-service 接口即可 -->
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-system-serviceimpl</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-grpc-client</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-frame-cache-redis</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 开发工具包,自动编译发布,不需要重启了 -->
+
+        <!-- devtools会造成两个类加载器,造成对象转化异常,具体参考: https://www.jianshu.com/p/e6d5a3969343 -->
+
+        <!-- 
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-devtools</artifactId>
+	        <optional>true</optional>
+	    </dependency>
+         -->
+
+
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        -->
+
+        <!-- 导出war模式,tomcat的scope设置成provided,测试可用,打包时排除.不推荐war包,推荐使用jar-->
+        <!--
+          <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-tomcat</artifactId>
+              <scope>provided</scope>
+          </dependency>
+        -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!--
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+            -->
+        </dependency>
+
+
+        <!-- 生产环境暂时不包含actuator -->
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        -->
+
+
+        <!-- 登录代码中集成了微信openId的功能,依赖了微信API,如果未使用微信相关功能, scope设置成 compile -->
+        <dependency>
+            <groupId>net.shengjian</groupId>
+            <artifactId>blockchainplatform-weixin-sdk</artifactId>
+            <version>6.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+
+        <plugins>
+
+
+            <!-- 忽略测试类 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+
+            <!-- 使用maven package命令进行,代码混淆 ,项目类型必须是jar,如果是war有时会报错.-->
+
+            <!--
+             <plugin>
+                 <groupId>com.github.wvengen</groupId>
+                 <artifactId>proguard-maven-plugin</artifactId>
+                 <version>${proguard-maven-plugin.version}</version>
+                 <executions>
+                     <execution>
+                         <phase>package</phase>
+                         <goals>
+                             <goal>proguard</goal>
+                         </goals>
+                     </execution>
+                 </executions>
+                 <configuration>
+
+                 <proguardVersion>${proguard.version}</proguardVersion>
+
+                 <proguardInclude>${basedir}/src/main/resources/proguard.conf</proguardInclude>
+                     <attach>true</attach>
+                     <obfuscate>true</obfuscate>
+                     <attachArtifactClassifier>pg</attachArtifactClassifier>
+                     <outjar>${finalName}-pg</outjar>
+                     <libs>
+                         <lib>${java.home}/lib/rt.jar</lib>
+                     </libs>
+
+                 </configuration>
+
+                  <dependencies>
+                     <dependency>
+                         <groupId>net.sf.proguard</groupId>
+                         <artifactId>proguard-base</artifactId>
+                         <version>${proguard.version}</version>
+                     </dependency>
+                 </dependencies>
+
+             </plugin>
+
+             -->
+
+
+            <plugin>
+                <groupId>com.github.shalousun</groupId>
+                <artifactId>smart-doc-maven-plugin</artifactId>
+                <version>${smart-doc-maven-plugin.version}</version>
+                <configuration>
+                    <!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->
+                    <configFile>./src/main/resources/smart-doc.json</configFile>
+                    <!--指定项目名称-->
+                    <projectName>${project.description}-API文档</projectName>
+                    <!--smart-doc实现自动分析依赖树加载第三方依赖的源码，如果一些框架依赖库加载不到导致报错，这时请使用excludes排除掉-->
+                    <excludes>
+                        <!--格式为：groupId:artifactId;参考如下-->
+                        <exclude>com.alibaba:fastjson</exclude>
+                    </excludes>
+                    <!--自1.0.8版本开始，插件提供includes支持-->
+                    <!--smart-doc能自动分析依赖树加载所有依赖源码，原则上会影响文档构建效率，因此你可以使用includes来让插件加载你配置的组件-->
+                    <includes>
+                        <!--格式为：groupId:artifactId;参考如下-->
+                        <include>net.shengjian.*</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
+                        <phase>compile</phase>
+                        <goals>
+                            <!--smart-doc提供了html、openapi、markdown、torna-rest等goal，可按需配置-->
+                            <goal>html</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!-- 纯java类的jar包时不要设置-->
+            <!-- 例如 blockchainplatform-mytest-web 模块引用了 blockchainplatform-system-web ,blockchainplatform-system-web就不需要使用spring boot模式打包了,注释掉这个插件,打包成普通的jar文件  -->
+            <!-- 需要注意:只能有一个@SpringBootApplication入口文件,需要把 blockchainplatform-system-web 中的 @SpringBootApplication等 注释掉.也可以其他的名称和这个名称保持一致,使用会自动覆盖这个实现,使用InitPermission这个类初始化自定义的权限 -->
+
+            <!--
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+           -->
+
+
+        </plugins>
+
+    </build>
+
+
+</project>
