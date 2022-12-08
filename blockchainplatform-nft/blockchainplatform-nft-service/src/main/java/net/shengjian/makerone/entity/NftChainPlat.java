@@ -320,7 +320,7 @@ public class NftChainPlat  extends BaseEntity {
 		if(StringUtils.isNotBlank(value)){
 			value=value.trim();
 		}
-		this.contractAccount = value;
+		this.contractAddress = value;
 	}
 	
 	
